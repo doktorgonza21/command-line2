@@ -1,0 +1,340 @@
+1. Сделать папку dir_1
+
+command: mkdir dir_1
+
+result: the dir_1 folder created
+
+2. Зайти в папку dir_1
+
+command: cd dir_1
+
+result: /c/dz2/dir_1
+
+3. Создать папку inner_dir_1
+
+command: mkdir inner_dir_1
+
+result: the inner_dir_1 folder created
+
+4. Посмотреть где ты находишься
+
+command: pwd
+
+result: /c/dz2/dir_1
+
+5. Находясь в папке dir_1 создать пустой текстовый файл tf_1.txt
+
+command: touch tf_1.txt
+
+result: the file tf_1.txt created
+
+6. Находясь в папке dir_1 через команду cat создать текстовый файл tf_2.txt со следующими строками:
+- the first 1
+- the second 2
+- the third 3
+
+command: echo -e "-first 1\n-second 2\n-third 3" | cat > tf_2.txt (also we can do this task using EOF, but I prefer my option because it's one string)
+
+result: cat tf_2.txt
+	-first 1
+	-second 2
+	-third 3
+
+7. Зайти в папку inner_dir_1
+
+command: cd inner_dir_1
+
+result: /c/dz2/dir_1/inner_dir_1
+
+8. Через cat сделать текстовый файл tf_3.txt  c любыми строками
+
+command: echo -e "The\nWorld" | cat > tf_3.txt
+
+result: cat tf_3.txt
+	The
+	World
+
+9. Через cat добавить в текстовый файл tf_3.txt строку “the second 2”
+
+command: echo -e "the second" | cat >> tf_3.txt
+
+result: cat tf_3.txt
+	The
+	World
+	the second
+
+10. Через cat добавить в текстовый файл tf_3.txt строку “the sec 2”
+
+command: echo -e "the sec 2" | cat >> tf_3.txt
+
+result: cat tf_3.txt
+	The
+	World
+	the second
+	the sec 2
+
+11. Через cat добавить в текстовый файл tf_2.txt строку “the sec 3”
+
+command: echo -e "the sec 3" | cat >> tf_3.txt
+
+result: cat tf_3.txt
+	The
+	World
+	the second
+	the sec 2
+	the sec 3
+
+12. Через cat добавить в текстовый файл tf_3.txt строку “the SeCoNd 2”
+
+command: echo -e "the SeCoNd 2" | cat >> tf_3.txt
+
+result: cat tf_3.txt
+	The
+	World
+	the second
+	the sec 2
+	the sec 3
+	the SeCoNd 2
+
+13. Через cat добавить в текстовый файл tf_2.txt строку “the seConD 2”
+
+command: echo -e "the seConD 2" | cat >> ../tf_2.txt
+
+result: cat ../tf_2.txt
+	-first 1
+	-second 2
+	-third 3
+	the seConD 2
+
+14. Сделать текстовый файл tf_4.txt в котором будет 15 строк.
+
+command: echo stroka{1..15} | sed "s/ /\n/g" | cat > tf_4.txt
+
+
+result: the file tf_4.txt created with 15 strings
+
+15. Сделать текстовый файл tF_5.txt в котором будет 13 строк.
+
+command: touch tF_5.txt | echo stroka{1..13} | sed "s/ /\n/g" | cat > tF_5.txt
+
+result: the file tF_5.txt created with 13 strings
+
+16. Вывести список всех файлов в папке.
+
+command: ls -1
+	
+
+result: tf_3.txt
+	tf_4.txt
+	tf_5.txt
+
+17. Выйти из папки inner_dir_1
+
+command: cd ..
+
+result: /c/dz2/dir_1
+
+18. Вывести содержимое файла tf_3.txt в терминал.
+
+command: cat inner_dir_1/tf_3.txt
+
+result: The
+	World
+	the second
+	the sec 2
+	the sec 3
+	the SeCoNd 2
+
+19. Найти путь к файлу tf_4.txt
+
+command: realpath tf_4.txt
+
+result: /c/dz2/dir_1/tf_4.txt
+
+20. Отчистить файл tf_4.txt от содержимого без удаления самого файла.
+
+command: echo -n > inner_dir_1/tf_4.txt
+
+result: file tf_4.txt cleared
+
+21. Найти путь к файлам у которых есть  “tf” в названии.
+
+command: find /c/dz2 -name 'tf*.txt' 
+
+result: /c/dz2/dir_1/inner_dir_1/tf_3.txt
+	/c/dz2/dir_1/inner_dir_1/tf_4.txt
+	/c/dz2/dir_1/inner_dir_1/tf_5.txt
+	/c/dz2/dir_1/tf_1.txt
+	/c/dz2/dir_1/tf_2.txt
+
+22. Найти путь к файлам у которых есть  “tf” в названии и буквы в любом регистре.
+
+command: find /c/dz2 -iname "tf*.txt"
+
+result: /c/dz2/dir_1/inner_dir_1/tf_3.txt
+	/c/dz2/dir_1/inner_dir_1/tf_4.txt
+	/c/dz2/dir_1/inner_dir_1/tF_5.txt
+	/c/dz2/dir_1/tf_1.txt
+	/c/dz2/dir_1/tf_2.txt
+
+23. Найти строки в файлах где есть комбинация букв “sec” в текущей папке
+
+command: grep -r "sec" /c/dz2/
+
+result: /c/dz2/dir_1/inner_dir_1/tf_3.txt:the second
+	/c/dz2/dir_1/inner_dir_1/tf_3.txt:the sec 2
+	/c/dz2/dir_1/inner_dir_1/tf_3.txt:the sec 3
+	/c/dz2/dir_1/tf_2.txt:-second 2
+
+24. Найти строки в файлах где есть комбинация букв “sec” в любом регистре в текущей папке
+
+command: grep -r -i "sec" /c/dz2/
+
+result: /c/dz2/dir_1/inner_dir_1/tf_3.txt:the second
+	/c/dz2/dir_1/inner_dir_1/tf_3.txt:the sec 2
+	/c/dz2/dir_1/inner_dir_1/tf_3.txt:the sec 3
+	/c/dz2/dir_1/inner_dir_1/tf_3.txt:the SeCoNd 2
+	/c/dz2/dir_1/tf_2.txt:-second 2
+	/c/dz2/dir_1/tf_2.txt:the seConD 2
+
+25. Найти строки в файлах где есть только комбинация букв “sec” в текущей папке
+
+command: grep "sec" *.*
+
+result: tf_2.txt:-second 2
+	
+26. Найти строки в файлах где есть только комбинация букв “sec” в любом регистре в текущей папке
+
+command: grep -i "sec" *.*
+
+result: tf_2.txt:-second 2
+	tf_2.txt:the seConD 2
+
+27. Найти строки в файлах где есть комбинация букв “second” в текущей папке
+
+command: grep "second" *.*
+
+result: tf_2.txt:-second 2
+
+28. Найти строки в файлах где есть комбинация букв “second” в любом регистре в текущей папке
+
+command: grep -i "second" *.*
+
+result: tf_2.txt:-second 2
+	tf_2.txt:the seConD 2
+
+29. Найти строки в файлах где есть комбинация букв “second” во всех папках ниже уровнем
+
+command: grep -i -r "second" ./inner_dir_1
+
+result: ./inner_dir_1/tf_3.txt:the second
+	./inner_dir_1/tf_3.txt:the SeCoNd 2
+
+30. Найти только путь и название файла в строках которых есть комбинация букв “second” в текущей папке
+
+command: grep -r -l "second" *.*
+
+result: tf_2.txt
+
+31. Найти все строки во всех файлах где нет комбинации “second”
+
+command: grep -v -r "second"
+
+result: inner_dir_1/tf_3.txt:The
+	inner_dir_1/tf_3.txt:World
+	inner_dir_1/tf_3.txt:the sec 2
+	inner_dir_1/tf_3.txt:the sec 3
+	inner_dir_1/tf_3.txt:the SeCoNd 2
+	inner_dir_1/tf_4.txt:stroka1
+	inner_dir_1/tf_4.txt:stroka2
+	inner_dir_1/tf_4.txt:stroka3
+	inner_dir_1/tf_4.txt:stroka4
+	inner_dir_1/tf_4.txt:stroka5
+	inner_dir_1/tf_4.txt:stroka6
+	inner_dir_1/tf_4.txt:stroka7
+	inner_dir_1/tf_4.txt:stroka8
+	inner_dir_1/tf_4.txt:stroka9
+	inner_dir_1/tf_4.txt:stroka10
+	inner_dir_1/tf_4.txt:stroka11
+	inner_dir_1/tf_4.txt:stroka12
+	inner_dir_1/tf_4.txt:stroka13
+	inner_dir_1/tf_4.txt:stroka14
+	inner_dir_1/tf_4.txt:stroka15
+	inner_dir_1/tF_5.txt:stroka1
+	inner_dir_1/tF_5.txt:stroka2
+	inner_dir_1/tF_5.txt:stroka3
+	inner_dir_1/tF_5.txt:stroka4
+	inner_dir_1/tF_5.txt:stroka5
+	inner_dir_1/tF_5.txt:stroka6
+	inner_dir_1/tF_5.txt:stroka7
+	inner_dir_1/tF_5.txt:stroka8
+	inner_dir_1/tF_5.txt:stroka9
+	inner_dir_1/tF_5.txt:stroka10
+	inner_dir_1/tF_5.txt:stroka11
+	inner_dir_1/tF_5.txt:stroka12
+	inner_dir_1/tF_5.txt:stroka13
+	tf_2.txt:-first 1
+	tf_2.txt:-third 3
+
+32. Найти только название и путь к файлам где нет комбинации “second”
+
+command: grep -r -L "second"
+
+result: inner_dir_1/tf_4.txt
+	inner_dir_1/tF_5.txt
+	tf_1.txt
+
+33. Вывести в терминал 4 последних строк любого текстового файла
+
+command: tail -4 ./inner_dir_1/tf_4.txt
+
+result: stroka12
+	stroka13
+	stroka14
+	stroka15
+
+34. Вывести в терминал 4 первые строки любого текстового файла.
+
+command: head -4 ./inner_dir_1/tf_4.txt
+
+result: stroka1
+	stroka2
+	stroka3
+	stroka4
+
+ 35. Команда в одну строку. Создать папку и создать текстовый файл с содержиммым.
+
+command: mkdir sd1 | touch sd1/sd1.txt
+
+result: the sd1 folder created and the sd1.txt created in this folder
+
+ 36. Команда в одну строку. Переместить в любую одну папку текстовые файлы у которых в содержимом есть слово “sec”
+
+command: mv `grep -r -l 'sec' --include=*.txt  ./*` ./sd1
+
+result: tf_2.txt and tf_3.txt files moved to sd1/ directory
+
+ 37. Команда в одну строку. Скопировать в любую одну папку текстовые файлы у которых в содержимом есть слово “sec”
+
+command: cp `grep -r -l 'sec' --include=*.txt  ./*` ./
+
+result: tf_2.txt and tf_3.txt files copied to current dir_1/ directory
+
+ 38. Команда в одну строку. Найти все строки c “sec” во всех текстовых файлах, скопировать и вставить эти строки в один новый созданный текстовый файл.
+
+command: grep -r -h 'sec' --exclude=sd_5.txt > sd_5.txt
+
+result: the sd_5.txt created and contains all 'sec' string from other files
+
+ 39. Команда в одну строку. Удалить текстовые файлы у которых в содержимом есть слово “sec”
+
+command: rm `grep -r -l 'sec' --include=*.txt  ./*`
+
+result: all files that contains 'sec' was deleted
+
+ 40. Просто вывести в терминал строку “Good job!!”
+
+command: echo 'Good job!!'
+
+result: Good job!!
+
