@@ -75,7 +75,7 @@ result: cat tf_3.txt
 
 11. Через cat добавить в текстовый файл tf_2.txt строку “the sec 3”
 
-command: echo -e "the sec 3" | cat >> tf_3.txt
+command: echo -e "the sec 3" | cat >> tf_2.txt
 
 result: cat tf_3.txt
 	The
