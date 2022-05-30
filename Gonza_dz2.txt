@@ -159,7 +159,7 @@ result: file tf_4.txt cleared
 
 21. Найти путь к файлам у которых есть  “tf” в названии.
 
-command: find /c/dz2 -name 'tf*.txt' 
+command: find /c/dz2 -name 'tf*.txt'  Или find . -name "tf*"
 
 result: /c/dz2/dir_1/inner_dir_1/tf_3.txt
 	/c/dz2/dir_1/inner_dir_1/tf_4.txt
@@ -179,33 +179,26 @@ result: /c/dz2/dir_1/inner_dir_1/tf_3.txt
 
 23. Найти строки в файлах где есть комбинация букв “sec” в текущей папке
 
-command: grep -r "sec" /c/dz2/
+command: grep "sec" ./* ИЛИ grep -s "sec" ./* ИЛИ grep "sec" *.*
 
-result: /c/dz2/dir_1/inner_dir_1/tf_3.txt:the second
-	/c/dz2/dir_1/inner_dir_1/tf_3.txt:the sec 2
-	/c/dz2/dir_1/inner_dir_1/tf_3.txt:the sec 3
-	/c/dz2/dir_1/tf_2.txt:-second 2
+result: /c/dz2/dir_1/tf_2.txt:-second 2
 
 24. Найти строки в файлах где есть комбинация букв “sec” в любом регистре в текущей папке
 
-command: grep -r -i "sec" /c/dz2/
+command: grep -i "sec" ./* ИЛИ grep -is "sec" ./* ИЛИ grep -i "sec" *.*
 
-result: /c/dz2/dir_1/inner_dir_1/tf_3.txt:the second
-	/c/dz2/dir_1/inner_dir_1/tf_3.txt:the sec 2
-	/c/dz2/dir_1/inner_dir_1/tf_3.txt:the sec 3
-	/c/dz2/dir_1/inner_dir_1/tf_3.txt:the SeCoNd 2
-	/c/dz2/dir_1/tf_2.txt:-second 2
+result:	/c/dz2/dir_1/tf_2.txt:-second 2
 	/c/dz2/dir_1/tf_2.txt:the seConD 2
 
 25. Найти строки в файлах где есть только комбинация букв “sec” в текущей папке
 
-command: grep "sec" *.*
+command: grep -w "sec" *.*
 
 result: tf_2.txt:-second 2
 	
 26. Найти строки в файлах где есть только комбинация букв “sec” в любом регистре в текущей папке
 
-command: grep -i "sec" *.*
+command: grep -i -w "sec" *.*
 
 result: tf_2.txt:-second 2
 	tf_2.txt:the seConD 2
@@ -225,14 +218,14 @@ result: tf_2.txt:-second 2
 
 29. Найти строки в файлах где есть комбинация букв “second” во всех папках ниже уровнем
 
-command: grep -i -r "second" ./inner_dir_1
+command: grep -i -r "second" */.
 
 result: ./inner_dir_1/tf_3.txt:the second
 	./inner_dir_1/tf_3.txt:the SeCoNd 2
 
 30. Найти только путь и название файла в строках которых есть комбинация букв “second” в текущей папке
 
-command: grep -r -l "second" *.*
+command: grep -r -l "second" *.* ИЛИ grep -ls "second" * | xargs readlink -f
 
 result: tf_2.txt
 
@@ -304,7 +297,7 @@ result: stroka1
 
  35. Команда в одну строку. Создать папку и создать текстовый файл с содержиммым.
 
-command: mkdir sd1 | touch sd1/sd1.txt
+command: mkdir sd1 | touch sd1/sd1.txt | echo -e "The\nWorld" > sd1/sd1.txt
 
 result: the sd1 folder created and the sd1.txt created in this folder
 
